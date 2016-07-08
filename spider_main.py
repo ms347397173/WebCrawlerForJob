@@ -6,7 +6,7 @@ class SpiderMain(object):
 		self.urls=url_manager.UrlManager()
 		self.downloader=html_downloader.HtmlDownloader()
 		self.parser=html_parser.HtmlParser()
-	#	self.outputer=html_outputer.HtmlOutputer()
+		self.outputer=html_outputer.HtmlOutputer()
 	#start method
 	def craw(self,root_url):
 		count=1
@@ -68,10 +68,19 @@ class SpiderMain(object):
 				break;
 			count=count+1
 
-	#	self.outputer.output_html()
+
+		sql="select * from job_xjtu_info"
+		cursor.execute(sql)
+		conn.commit()
+		rs=cursor.fetchall()
+		self.outputer.output_html('/home/m/HTTP',rs)
+
+		
 
 		cursor.close()
 		conn.close()
+
+		
 
 if __name__=="__main__":
 	root_url="http://job.xjtu.edu.cn/jobmore.do"   #index
